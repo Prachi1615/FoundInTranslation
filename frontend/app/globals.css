@@ -66,6 +66,12 @@ textarea {
   border-radius: 6px !important;
 }
 
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
