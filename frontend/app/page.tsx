@@ -36,7 +36,7 @@ const App = () => {
 
   return <div className={`widget-wrapper ${ isLoggedIn ? "" : "justify-center" }`}>
     <DynamicWidget />
-    <h2 className="text-2xl font-bold mb-4">{isLoggedIn ? "Choose your languages" : "Welcome to Found In Translation"}</h2>
+    <h2 className="text-2xl font-bold mb-4 text-center">{isLoggedIn ? "Choose your languages" : "Welcome to Found In Translation"}</h2>
     {isLoggedIn && <SelectLanguage />}
     {isLoggedIn && !!targetLanguage && !!destinationLanguage && <TranslationView />}
   </div>;

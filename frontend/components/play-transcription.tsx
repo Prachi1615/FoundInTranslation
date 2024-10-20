@@ -15,7 +15,7 @@ const PlayTranscription = () => {
   return (
     <button
       onClick={handlePlay}
-      className="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5"
+      className="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-5 float-right"
     >
       <FaPlayCircle className="text-4xl" />
     </button>
