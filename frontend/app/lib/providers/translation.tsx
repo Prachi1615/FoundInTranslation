@@ -9,8 +9,8 @@ type TranslationContextType = {
   setDestinationTranscription: (text: string) => void;
 };
 
-const loremIpsumTarget = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-const loremIpsumDestination = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+export const loremIpsumTarget = "text and translation in the UI";
+export const loremIpsumDestination = "texto y traduccin en la interfaz de usuario";
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
@@ -23,8 +23,8 @@ export const useTranslation = () => {
 };
 
 export const TranslationProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
-  const [targetTranscription, setTargetTranscription] = useState(loremIpsumTarget);
-  const [destinationTranscription, setDestinationTranscription] = useState(loremIpsumDestination);
+  const [targetTranscription, setTargetTranscription] = useState('');
+  const [destinationTranscription, setDestinationTranscription] = useState('');
 
   return (
     <TranslationContext.Provider
