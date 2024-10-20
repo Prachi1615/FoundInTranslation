@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { DynamicContextProvider, DynamicWidget } from "@dynamic-labs/sdk-react-core";
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { LanguageProvider } from "./lib/providers/language";
+import { TranslationProvider } from "./lib/providers/translation";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +30,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${ geistSans.variable } ${ geistMono.variable } antialiased`}
       >
-        {children}
+        <LanguageProvider>
+          <TranslationProvider>
+            <DynamicContextProvider
+              settings={{
+                appName: 'Found In Translation',
+                environmentId: '4ffa98ef-1ebf-4f68-9a03-b1cdb3f55a7e',
+                walletConnectors: [EthereumWalletConnectors],
+              }}>
+              <div className="p-4">
+                <DynamicWidget />
+                {children}
+              </div>
+            </DynamicContextProvider>
+          </TranslationProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

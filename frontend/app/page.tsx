@@ -1,18 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import SelectLanguage from "@/components/select-language";
+import TranslationView from "@/components/translation-view";
+import { useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
+import { useLanguage } from "./lib/providers/language";
 
-const App = () => (
-  <DynamicContextProvider
-    settings={{
-      environmentId: '4ffa98ef-1ebf-4f68-9a03-b1cdb3f55a7e',
-      walletConnectors: [ EthereumWalletConnectors ],
-    }}>
-    <DynamicWidget />
-  </DynamicContextProvider>
-);
+
+const App = () => {
+  const isLoggedIn = useIsLoggedIn();
+  const { targetLanguage, destinationLanguage } = useLanguage();
+
+  return <div className="pt-4">
+    <h2 className="text-2xl font-bold mb-4">{isLoggedIn ? "Choose your languages to begin translation" : "Please login to use Found In Translation"}</h2>
+    {isLoggedIn && <SelectLanguage />}
+    {isLoggedIn && !!targetLanguage && !!destinationLanguage && <TranslationView />}
+  </div>;
+};
 
 export default App;
 
