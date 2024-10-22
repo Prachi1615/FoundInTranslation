@@ -16,9 +16,7 @@ const App = () => {
   
   const isLoggedIn = useIsLoggedIn();
   const { targetLanguage, destinationLanguage } = useLanguage();
-<<<<<<< Updated upstream
   // const { primaryWallet } = useDynamicContext();
-=======
   const { primaryWallet } = useDynamicContext();
 
   // if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
@@ -29,7 +27,6 @@ const App = () => {
   
 
   // }
->>>>>>> Stashed changes
 
   // useEffect(() => {
   //   const fetchBalance = async () => {
