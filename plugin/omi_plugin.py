@@ -13,7 +13,6 @@ url=os.environ.get('url')
 
 @app.route("/webhook", methods=["POST"])
 def getData():
-    print("webhook")
     payload = request.json
 
     if request.args.get("forwarded") == "true":
@@ -30,25 +29,37 @@ def getData():
     start=payload.get("segments")[0].get("start")
     end=payload.get("segments")[0].get("end")
     is_user=payload.get("segments")[0].get("is_user")
+    print("###########################")
+    print("ORIGINAL USER MESSAGE TRANSCRIPTION")
+    print(text)
+    
+    translation_request=requests.get("https://wapo-testnet.phala.network/ipfs/QmXDgi7jbmQjEVdqSuJhWxTpAx5fvgqLzbhPTWg2XGjePk?key=08dbe3c52440c8ab&chatQuery=Convert this text to spanish: "+str(text))
+    translation_response=translation_request.json()
+    translation=translation_response.get("message")
+    print("###########################")
+    print("TRANSLATION")
+    print(translation)
 
-    print("Session id",session_id)
-    print("args",uid)
-    print("text",text)
+    dict={"original_text":text,"translation":translation}
+    # Serializing json
+    json_object = json.dumps(dict, indent=4)
+    
+    # Writing to sample.json
+    with open("sample.json", "w") as outfile:
+        outfile.write(json_object)
     try:
-        target_url = url+"/webhook"+"?session_id="+session_id+"&uid="+uid+"&forwarded=true"
-        target_url += "&forwarded=true"
+        target_url = url+"/webhook?session_id="+session_id+"&uid="+uid+"&forwarded=true"
         res_data={
             "session_id": session_id,
             "segments": [
-                        {
-            "text": "Yeah. Yeah. Yeah. Yeah. I I found that before.",
+                {
+                    "text": translation,
                     "speaker": speaker,
-                    "speaker_id": speaker_id,
+                    "speakerId": speaker_id,
                     "is_user": is_user,
                     "start": start,
                     "end": end
-                            }
-                        ]
+                }       ]
                     }
         res_json=json.dumps(res_data)
         response = requests.post(target_url, data=res_json,headers={'Content-Type': 'application/json'})
@@ -67,10 +78,6 @@ def getData():
         print(f'An error occurred: {e}')
         return 'Error forwarding the webhook data', 500
 
-
-@app.route("/webhook", methods=["POST"])
-def test():
-    return "test"
 
 
 if __name__ == "__main__":

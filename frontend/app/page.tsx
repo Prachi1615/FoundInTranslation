@@ -9,10 +9,27 @@ import { useLanguage } from "./lib/providers/language";
 // import { useEffect } from "react";
 // import abi from "./abi/abi.json";
 
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { isEthereumWallet } from "@dynamic-labs/ethereum";
+
 const App = () => {
+  
   const isLoggedIn = useIsLoggedIn();
   const { targetLanguage, destinationLanguage } = useLanguage();
+<<<<<<< Updated upstream
   // const { primaryWallet } = useDynamicContext();
+=======
+  const { primaryWallet } = useDynamicContext();
+
+  // if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
+
+  // const fetchBalance = async () => {
+  //   const publicClient = await primaryWallet.getPublicClient();
+  //   const walletClient = await primaryWallet.getWalletClient();
+  
+
+  // }
+>>>>>>> Stashed changes
 
   // useEffect(() => {
   //   const fetchBalance = async () => {
